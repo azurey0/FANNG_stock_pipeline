@@ -3,22 +3,22 @@
 ## Create GCP Project
 Create a new project and switch to the project.
 Go to the left panel of your project, select Compute Engine API:
-- Enable the API
-- Go to VM instances, select CREATE INSTANCE
+- Enable the API  
+- Go to VM instances, select CREATE INSTANCE  
 	region: closest to you with low co2
 	Machine Type: e2-standard-4 (4 vCPU, 16 GB Memory)
 	Change boot disk: Ubuntu 20.04 LTS, a larger size > 30 GB
-- Configure SSH to VM
+- Configure SSH to VM  
 	Create SSH key following: https://cloud.google.com/compute/docs/connect/create-ssh-keys#windows-10-or-later
 	Add SSH key to VM following: https://cloud.google.com/compute/docs/connect/add-ssh-keys
 	Create a config-file locally under your .ssh directory with the following content:  
-			Host <hostname to use when connecting>  
-			HostName <external IP>  
+			Host <hostname to use when connecting>    
+			HostName <external IP>    
 			User <DESIREDUSERNAMEONVM you specified in ssh-keygen command>  
 			IdentityFile <path to your private key> e.g.  ~/.ssh/privatekey  
 	Go to local terminal and start SSH connection to host:
 		`ssh <hostname to use when connecting>`
-- Configure VSCode with SSH
+- Configure VSCode with SSH  
 	Search extension SSH and install Remote-SSH
 	Under lower left corner, select Open a Remote Window, then follow 'Connect to Host' to your project 
 
@@ -55,19 +55,33 @@ Go to the left panel of your project, select Compute Engine API:
 	Go 'Manage Keys' for this service account, then go to 'Create JSON keys' to download key
 	Then sftp the downloaded key to GCP: in your local terminal, cd to the directory having the JSON keys, then 
     ```
-		sftp <YOUR_GSC_PROJECT>
+	sftp <YOUR_GSC_PROJECT>
     ```
 	Then in sftp:
     ```
-		mkdir .gc
-		cd .gc
-		put <YOUR_JSON_FILE_NAME>
+	mkdir .gc
+	cd .gc
+	put <YOUR_JSON_FILE_NAME>
     ```
 	Back to SSH session, use the following command to add service account keys to GCP authorization:
     ```
-		export GOOGLE_APPLICATION_CREDENTIALS=~/.gc/<YOUR_JSON_FILE_NAME>
-		gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+	export GOOGLE_APPLICATION_CREDENTIALS=~/.gc/<YOUR_JSON_FILE_NAME>
+	gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
     ```
+### Run Terraform to set up gcs
+Navigate to terraform folder,
+Initialize terraform:
+```
+terraform init
+```
+First, verify the build plan in main.tf with the following command.  
+```
+terraform plan
+```
+Apply the change to see the results. Reply yes again to confirm when requested.  
+```
+terraform apply
+```
 
 ## Install Anaconda & Kaggle API, download dataset
  `wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh`
@@ -102,5 +116,61 @@ Install Apache Airflow:
 ```
 pip install "apache-airflow[celery]==2.9.0" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.9.0/constraints-3.8.txt"
 ```
+Initialize the Airflow Database:
+```
+airflow db init
+```
+Create an Admin User:
+```
+airflow users create \
+  --username admin \
+  --firstname FIRST_NAME \
+  --lastname LAST_NAME \
+  --role Admin \
+  --email admin@example.com
+```
+Install the Google Cloud Provider for Airflow:
+```
+pip install apache-airflow-providers-google
+```
+Configure Airflow to connect to GCS:
+- Set Up Google Cloud Authentication:
 
+Create a service account in your Google Cloud project with permissions to access GCS.
+Download the service account key JSON file.
+- Add a Connection to Airflow:
+Navigate to the Airflow Web UI (http://localhost:8080 by default, you need to forward the port to use it locally).
+Go to Admin > Connections, and click on + Add a new record.
+Enter the connection details:
+Conn Id: Enter a unique identifier for this connection, e.g., google_cloud_default.
+Conn Type: Select Google Cloud.
+Scopes (optional): Leave blank or specify as needed.
+Project Id: Enter your Google Cloud project ID.
+Keyfile Path: The absolute path to your service account JSON file.
+Keyfile JSON: Alternatively, paste the contents of your service account JSON file here.
 
+Hooray! We are ready to run Airflow:
+Start the Web Server:
+```
+airflow webserver --port 8080 -D
+```
+Start the Scheduler:
+```
+airflow scheduler
+```
+
+After setting up Airflow, if you are not able to see airflow/dags folder, follow these steps to set it up:
+Locate or Set AIRFLOW_HOME:
+If `echo $AIRFLOW_HOME` is null, set up by `export AIRFLOW_HOME=/path/to/your/airflow_home` and add it to the end of ~/.bashrc file.
+Create the dags folder:
+```
+cd $AIRFLOW_HOME
+mkdir dags
+```
+
+### Run the DAG to upload files to GCS
+The Airflow Web UI provides an easy way to trigger DAGs manually with custom parameters.
+Navigate to the DAGs List: Open the Airflow Web UI in your browser (typically found at http://localhost:8080 if you're running Airflow locally).  
+Find the DAG: Look for the DAG ID fanng_stock_pipeline in the list of DAGs.  
+Trigger the DAG: Click on the "Play" button (▶️) to the right of your DAG. This opens a dialog where you can optionally specify a JSON configuration.  
+Now you will able to see files loaded in GCS.
