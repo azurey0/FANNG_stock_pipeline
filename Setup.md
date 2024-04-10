@@ -47,12 +47,12 @@ Go to the left panel of your project, select Compute Engine API:
     ```
 
 - Configure a service account
-	Go to IAM Admin - Service Account:
-	Create a service account and grant following roles:
-		Storage Admin
-		BigQuery Admin
-		Compute Engine Admin
-	Go 'Manage Keys' for this service account, then go to 'Create JSON keys' to download key
+	Go to IAM Admin - Service Account: \
+	Create a service account and grant following roles: \
+		- Storage Admin \
+		- BigQuery Admin \
+		- Compute Engine Admin \
+	Go 'Manage Keys' for this service account, then go to 'Create JSON keys' to download key\
 	Then sftp the downloaded key to GCP: in your local terminal, cd to the directory having the JSON keys, then 
     ```
 	sftp <YOUR_GSC_PROJECT>
@@ -84,26 +84,40 @@ terraform apply
 ```
 
 ## Install Anaconda & Kaggle API, download dataset
- `wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh`
+ ```
+ wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh
+```
  Then install:
- `bash Anaconda3-2024.02-1-Linux-x86_64.sh`
+ ```
+ bash Anaconda3-2024.02-1-Linux-x86_64.sh
+```
  Remove the file:
- `rm  Anaconda3-2024.02-1-Linux-x86_64.sh`
+ ```
+ rm  Anaconda3-2024.02-1-Linux-x86_64.sh
+```
 Install pip and kaggle package:
-`sudo apt install python3-pip`
+```
+sudo apt install python3-pip
+```
 Then
-`pip3 install kaggle`
-In Kaggle website, under Profile/Settings/API, select 'Create New Token' to download `kaggle.json`, copy this credential file to `~/.kaggle/kaggle.json` for using the API.
+```
+pip3 install kaggle
+```
+In Kaggle website, under Profile/Settings/API, select 'Create New Token' to download `kaggle.json`, copy this credential file to `~/.kaggle/kaggle.json` for using the API.\
 Add kaggle to PATH by modify `.bashrc`, add this to the end of file, replace username with your own username:
-`export PATH="/home/username/.local/bin:$PATH"`
+```
+export PATH="/home/username/.local/bin:$PATH"
+```
 Then reload shell configuration:
-`source ~/.bashrc`
+```
+source ~/.bashrc
+```
 Then run `kaggle datasets download aayushmishra1512/faang-complete-stock-data --unzip` to download and unzip dataset to raw_dataset folder
 
 
 ## Install Spark
 Following this guide：
-https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md
+https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md \
 Don't forget to install PySpark (in the bottom of the page)
 
 ## Install Airflow
@@ -135,21 +149,20 @@ pip install apache-airflow-providers-google
 ```
 Configure Airflow to connect to GCS:
 - Set Up Google Cloud Authentication:
-
-Create a service account in your Google Cloud project with permissions to access GCS.
+Create a service account in your Google Cloud project with permissions to access GCS.\
 Download the service account key JSON file.
 - Add a Connection to Airflow:
-Navigate to the Airflow Web UI (http://localhost:8080 by default, you need to forward the port to use it locally).
+Navigate to the Airflow Web UI (http://localhost:8080 by default, you need to forward the port to use it locally).\
 Go to Admin > Connections, and click on + Add a new record.
-Enter the connection details:
-Conn Id: Enter a unique identifier for this connection, e.g., google_cloud_default.
-Conn Type: Select Google Cloud.
-Scopes (optional): Leave blank or specify as needed.
-Project Id: Enter your Google Cloud project ID.
-Keyfile Path: The absolute path to your service account JSON file.
+- Enter the connection details:
+Conn Id: Enter a unique identifier for this connection, e.g., google_cloud_default.\
+Conn Type: Select Google Cloud.\
+Scopes (optional): Leave blank or specify as needed.\
+Project Id: Enter your Google Cloud project ID.\
+Keyfile Path: The absolute path to your service account JSON file.\
 Keyfile JSON: Alternatively, paste the contents of your service account JSON file here.
 
-Hooray! We are ready to run Airflow:
+Hooray! We are ready to run Airflow:\
 Start the Web Server:
 ```
 airflow webserver --port 8080 -D
@@ -159,9 +172,9 @@ Start the Scheduler:
 airflow scheduler
 ```
 
-After setting up Airflow, if you are not able to see airflow/dags folder, follow these steps to set it up:
-Locate or Set AIRFLOW_HOME:
-If `echo $AIRFLOW_HOME` is null, set up by `export AIRFLOW_HOME=/path/to/your/airflow_home` and add it to the end of ~/.bashrc file.
+After setting up Airflow, if you are not able to see airflow/dags folder, follow these steps to set it up:\
+Locate or Set `$AIRFLOW_HOME`:\
+If `echo $AIRFLOW_HOME` is null, set up by `export AIRFLOW_HOME=/path/to/your/airflow_home` and add it to the end of ~/.bashrc file.\
 Create the dags folder:
 ```
 cd $AIRFLOW_HOME
@@ -170,7 +183,7 @@ mkdir dags
 
 ### Run the DAG to upload files to GCS
 The Airflow Web UI provides an easy way to trigger DAGs manually with custom parameters.
-Navigate to the DAGs List: Open the Airflow Web UI in your browser (typically found at http://localhost:8080 if you're running Airflow locally).  
-Find the DAG: Look for the DAG ID fanng_stock_pipeline in the list of DAGs.  
-Trigger the DAG: Click on the "Play" button (▶️) to the right of your DAG. This opens a dialog where you can optionally specify a JSON configuration.  
-Now you will able to see files loaded in GCS.
+- Navigate to the DAGs List: Open the Airflow Web UI in your browser (typically found at http://localhost:8080 if you're running Airflow locally).  
+- Find the DAG: Look for the DAG ID fanng_stock_pipeline in the list of DAGs.
+- Trigger the DAG: Click on the "Play" button (▶️) to the right of your DAG. This opens a dialog where you can optionally specify a JSON configuration. 
+- Now you will able to see files loaded in GCS.
