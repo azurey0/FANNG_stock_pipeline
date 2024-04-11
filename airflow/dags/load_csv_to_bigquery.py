@@ -23,10 +23,21 @@ with DAG(
         bucket=GCS_BUCKET,
         source_objects=[GCS_FILE_PATH],  # Use wildcard to match all CSV files
         destination_project_dataset_table=RAW_TABLE,
-        schema_fields=None,  # Set to None if BigQuery should auto-detect schema
         write_disposition='WRITE_TRUNCATE',  # Consider 'WRITE_APPEND' if you don't want to overwrite
         source_format='CSV',
         skip_leading_rows=1,  # Use if your CSV files have a header row
-        autodetect=True,  # Enable schema auto-detection
+        autodetect=False,  # Enable schema auto-detection
         src_fmt_configs={"nullMarker": "null"},  # Adjust this to match how null values are represented in your CSV files
+        schema_fields=[
+        {'name': 'Date', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'Open', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'High', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'Low', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'Close', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'AdjClose', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'Volume', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'Year', 'type': 'STRING', 'mode': 'NULLABLE'},
+        {'name': 'Company', 'type': 'STRING', 'mode': 'NULLABLE'},  # Added based on your previous modification
+        # Add additional fields as necessary
+    ],
     )
