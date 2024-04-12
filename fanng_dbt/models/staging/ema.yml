@@ -6,3 +6,22 @@ models:
     description: exponential moving average for 7, 20, 50, 100, 200 days
     docs:
       show: true
+    columns:
+      - name: ema7
+        tests:
+        - dbt_utils.not_null_proportion:
+              at_least: 0.95
+      - name: ema20
+        tests:
+        - dbt_utils.not_null_proportion:
+              at_least: 0.95
+      - name: ema50
+        tests:
+        - dbt_utils.not_null_proportion:
+              at_least: 0.90
+      - name: ema100
+        tests:
+        - dbt_utils.not_null_proportion:
+              at_least: 0.90
+
+

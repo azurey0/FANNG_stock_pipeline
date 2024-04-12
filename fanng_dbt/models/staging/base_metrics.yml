@@ -6,3 +6,16 @@ models:
     description: ingest raw table convert to staging
     docs:
       show: true
+    columns:
+    - name: open
+      tests:
+        - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: false
+    - name: low
+      tests:
+        - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: false
+      
+
