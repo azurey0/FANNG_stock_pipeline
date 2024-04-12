@@ -1,0 +1,10 @@
+
+version: 2
+
+sources:
+  - name: fanng_stock
+    database: decapstone-419603
+    schema: fanng_stock_dataset
+    tables:
+      - name: raw
+        description: "Raw stock data for FANNG companies."

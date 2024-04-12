@@ -1,0 +1,11 @@
+fanng_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: decapstone-419603
+      dataset: faang_stock_staging
+      threads: 1
+      keyfile: /home/zhangr235_dev0/.gc/decapstone-419603-9c3d94bd40f2.json
+      timeout_seconds: 300

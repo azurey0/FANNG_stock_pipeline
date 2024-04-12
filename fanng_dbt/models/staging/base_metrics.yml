@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: base_metrics
+    alias: base_metrics
+    description: ingest raw table convert to staging
+    docs:
+      show: true
