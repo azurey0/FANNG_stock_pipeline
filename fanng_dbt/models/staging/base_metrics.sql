@@ -2,7 +2,7 @@
     materialized='incremental',
     alias='base_metrics',
     partition_by={
-        'field': '_PARTITIONTIME',
+        'field': 'processed_at',
         'data_type': 'timestamp',
         'granularity': 'day'
     },
@@ -11,7 +11,7 @@
 ) }}
 
 SELECT
-    CURRENT_TIMESTAMP() as _PARTITIONTIME,  -- This generates the ingestion timestamp
+    CURRENT_TIMESTAMP() as processed_at,  -- This generates the ingestion timestamp
     DATE(parse_date('%Y-%m-%d', Date)) as date,
     SAFE_CAST(Open as NUMERIC) as open,
     SAFE_CAST(High as NUMERIC) as high,
