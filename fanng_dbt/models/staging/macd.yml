@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: macd
+    alias: macd
+    description: MACD involves the difference between two EMAs (typically 12-day and 26-day) and a signal line, which is the EMA of the MACD.
+    docs:
+      show: true

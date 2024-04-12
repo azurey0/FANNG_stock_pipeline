@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: rsi
+    alias: rsi
+    description: Relative Strength Index (RSI). Measures the speed and change of price movements. Typically used to identify overbought or oversold conditions.
+    docs:
+      show: true
