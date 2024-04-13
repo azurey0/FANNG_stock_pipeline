@@ -187,3 +187,7 @@ The Airflow Web UI provides an easy way to trigger DAGs manually with custom par
 - Find the DAG: Look for the DAG ID fanng_stock_pipeline in the list of DAGs.
 - Trigger the DAG: Click on the "Play" button (▶️) to the right of your DAG. This opens a dialog where you can optionally specify a JSON configuration. 
 - Now you will able to see files loaded in GCS.
+
+
+### Link to dashboard
+https://lookerstudio.google.com/reporting/9ee0fe34-e134-4723-8209-45bcb436c026/page/0ojwD
