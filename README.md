@@ -34,9 +34,7 @@ Before you begin setting up this project, ensure you have the following:
 
 ## Project Build & Setup
 
-Follow these steps to get the project up and running:
+Follow [Setup.md](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/Setup.md) 
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://your-repository-url.git
-   cd your-repository-directory
+## Dashboard 
+![Example view](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/dashboard.png)
