@@ -116,11 +116,14 @@ Then run `kaggle datasets download aayushmishra1512/faang-complete-stock-data --
 
 
 ## Install Spark
+In this project, Spark is used to read and transform files from API, and upload files to gcs bucket.\
 Following this guide：
 https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md \
 Don't forget to install PySpark (in the bottom of the page)
 
+
 ## Install Airflow
+In this project, Airflow is used to ochestrated with Spark and dbt for data pipeline.\
 Create a Virtual Environment 
 ```
 python3 -m venv airflow_env
@@ -182,12 +185,36 @@ mkdir dags
 ```
 
 ### Run the DAG to upload files to GCS
-The Airflow Web UI provides an easy way to trigger DAGs manually with custom parameters.
+The Airflow Web UI provides an easy way to trigger DAGs manually with custom parameters.\
 - Navigate to the DAGs List: Open the Airflow Web UI in your browser (typically found at http://localhost:8080 if you're running Airflow locally).  
 - Find the DAG: Look for the DAG ID fanng_stock_pipeline in the list of DAGs.
 - Trigger the DAG: Click on the "Play" button (▶️) to the right of your DAG. This opens a dialog where you can optionally specify a JSON configuration. 
 - Now you will able to see files loaded in GCS.
 
+## Install dbt
+In this project, dbt is used to transform data from raw dataset to staging dataset then to production dataset.\
+Here is the data lineage graph()
+
+-  Create a virtual environment to keep your dbt installation and project dependencies isolated:
+```
+python -m venv dbt-env
+source dbt-env/bin/activate  # On Windows, use `dbt-env\Scripts\activate`
+```
+- Install dbt for BigQuery:
+```
+pip install dbt-bigquery
+```
+I created dags to let dbt write back to bigquery. Trigger the corresponding dag to see running from dbt.
+(Optional)Run dbt model locally: navigate to fanng_dbt folder then:
+```
+dbt run --select {model_name}
+```
+
 
 ### Link to dashboard
+In this project, Looker dashboard reads from the production dataset to visualize calculated stock metrics.\  
+There are many metrics not covered in current dashboard, if you want to create your own looker dashboard:
+- Go to (https://lookderstudio.google.com) and login with your Google Account that built up this project
+- Select Create - Datasource at the left corner
+- Select Bgiquery and the production dataset to create a dashboard
 https://lookerstudio.google.com/reporting/9ee0fe34-e134-4723-8209-45bcb436c026/page/0ojwD
