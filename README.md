@@ -37,6 +37,7 @@ Before you begin setting up this project, ensure you have the following:
 Follow [Setup.md](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/Setup.md) 
 
 ## Dashboard 
+Here is the [link](https://lookerstudio.google.com/reporting/9ee0fe34-e134-4723-8209-45bcb436c026/page/0ojwD).
 ![Example view](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/dashboard.png)
 
 ## Testing
