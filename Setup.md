@@ -193,7 +193,7 @@ The Airflow Web UI provides an easy way to trigger DAGs manually with custom par
 
 ## Install dbt
 In this project, dbt is used to transform data from raw dataset to staging dataset then to production dataset.\
-Here is the data lineage graph()
+![Here is the data lineage graph](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/lineage.png)
 
 -  Create a virtual environment to keep your dbt installation and project dependencies isolated:
 ```
@@ -217,3 +217,4 @@ There are many metrics not covered in current dashboard, if you want to create y
 - Go to (https://lookderstudio.google.com) and login with your Google Account that built up this project
 - Select Create - Datasource at the left corner
 - Select Bgiquery and the production dataset to create a dashboard
+https://lookerstudio.google.com/reporting/9ee0fe34-e134-4723-8209-45bcb436c026/page/0ojwD

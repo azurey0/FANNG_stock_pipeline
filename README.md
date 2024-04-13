@@ -15,7 +15,7 @@ The ultimate goal is to provide a dynamic dashboard that presents these key fina
 - **Workflow Orchestration**: Apache Airflow
 - **Analytics and Visualization**: Looker
 - **Programming Languages**: SQL, Python
-- **Version Control**: Git, GitHub for CI/CD integration
+- **Version Control**: Git
 
 ## Data Pipeline Diagram
 
@@ -34,9 +34,12 @@ Before you begin setting up this project, ensure you have the following:
 
 ## Project Build & Setup
 
-Follow these steps to get the project up and running:
+Follow [Setup.md](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/Setup.md) 
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://your-repository-url.git
-   cd your-repository-directory
+## Dashboard 
+Here is the [link](https://lookerstudio.google.com/reporting/9ee0fe34-e134-4723-8209-45bcb436c026/page/0ojwD).
+![Example view](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/dashboard.png)
+
+## Testing
+Tests are added to dbt models.
+To further improvements, Airflow tests should be added. Also CI/CD process should be added.
