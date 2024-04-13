@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: prod_metrics
+    alias: prod_metrics
+    description: metrics table for dashboards
+    docs:
+      show: true

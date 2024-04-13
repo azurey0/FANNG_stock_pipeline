@@ -1,0 +1,13 @@
+
+target/
+dbt_packages/
+logs/
+raw_dataset/
+spark/.ipynb_checkpoints
+
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform
+
+package-lock.yml

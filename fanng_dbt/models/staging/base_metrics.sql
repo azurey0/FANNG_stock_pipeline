@@ -25,5 +25,5 @@ FROM
 -- Specify how dbt decides what data to insert on each run
 {% if is_incremental() %}
   -- this filter will only be applied on incremental runs
-  WHERE date_column > (SELECT MAX(date_column) FROM {{ this }})
+  WHERE date > (SELECT MAX(date) FROM {{ this }})
 {% endif %}

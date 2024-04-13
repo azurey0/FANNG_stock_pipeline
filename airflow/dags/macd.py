@@ -12,6 +12,6 @@ with DAG('macd',
         task_id='dbt_run_macd',
         bash_command='source /home/zhangr235_dev0/dbt-env/bin/activate && ' \
               'cd /home/zhangr235_dev0/FANNG_stock_pipeline/fanng_dbt && '\
-             'dbt run --select staging.macd'
+             'dbt run --select staging.macd --target dev'
 
     )
