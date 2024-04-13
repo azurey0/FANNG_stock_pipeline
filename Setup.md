@@ -217,4 +217,3 @@ There are many metrics not covered in current dashboard, if you want to create y
 - Go to (https://lookderstudio.google.com) and login with your Google Account that built up this project
 - Select Create - Datasource at the left corner
 - Select Bgiquery and the production dataset to create a dashboard
-https://lookerstudio.google.com/reporting/9ee0fe34-e134-4723-8209-45bcb436c026/page/0ojwD
