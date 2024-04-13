@@ -19,7 +19,7 @@ The ultimate goal is to provide a dynamic dashboard that presents these key fina
 
 ## Data Pipeline Diagram
 
-![Data Pipeline Diagram](link_to_your_data_pipeline_diagram_image_here)
+![Data Pipeline Diagram](https://github.com/azurey0/FANNG_stock_pipeline/blob/master/diagram.gif)
 
 This diagram illustrates the flow of data from source to visualization, showcasing how each technology is utilized within the pipeline.
 
